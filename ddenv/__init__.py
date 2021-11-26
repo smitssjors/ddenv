@@ -1,3 +1,7 @@
+"""Docker Dev Environment, easily develop your programs using containers"""
+
+__version__ = "0.0.1"
+
 import docker
 import typer
 
@@ -9,7 +13,3 @@ def info():
 
 def main():
     typer.run(info)
-
-
-if __name__ == "__main__":
-    main()
