@@ -1,7 +1,9 @@
 # Docker Dev Environment
 
 ## Usage
-`ddenv` -> read config from file
+`ddenv` -> always read config from file if there is one
+
+`ddenv --config ./walla/ddenv.yml` -> specify config file
 
 `ddenv node index.js` -> try to infer the runtime
 
