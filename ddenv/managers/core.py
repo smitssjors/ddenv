@@ -1,10 +1,12 @@
 from abc import ABC, abstractmethod
+from collections.abc import Iterator
 from importlib import import_module
 from pathlib import Path
 from types import ModuleType
 from typing import Optional, Type
 
 from docker import from_env
+from docker.models.containers import Container
 
 
 class BaseManager(ABC):
@@ -27,12 +29,32 @@ class BaseManager(ABC):
         """Get the path to a file in the current workdir"""
         return Path(self.workdir, file)
 
+    @property
+    @abstractmethod
+    def image_name(self) -> str:
+        """Return the name of the image"""
+        return "ddenv"
+
+    @property
+    @abstractmethod
+    def image_tag(self) -> str:
+        """Returns the tag of the image"""
+
+    @property
+    @abstractmethod
+    def image_exists(self) -> bool:
+        """Check whether the base image already exists"""
+
     @abstractmethod
     def build_base_image(self):
         """
         Build the base image used for running commands.
         Should include all dependencies.
         """
+
+    @abstractmethod
+    def run_command(self, command: Optional[list[str]]) -> Iterator[bytes]:
+        """Run the given command in the base image and return the logs"""
 
 
 class ManagerNotFoundError(Exception):

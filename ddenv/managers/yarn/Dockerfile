@@ -10,6 +10,11 @@ RUN yarn
 
 FROM node:$VERSION
 
-WORKDIR /app
+WORKDIR /app_deps
 
-COPY --from=build /app/node_modules .
+COPY --from=build /app/node_modules ./node_modules
+
+WORKDIR /app
+COPY entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["yarn", "start"]
