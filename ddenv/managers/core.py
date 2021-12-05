@@ -24,6 +24,7 @@ class BaseManager(ABC):
         return self._workdir
 
     def workdir_file(self, file: str) -> Path:
+        """Get the path to a file in the current workdir"""
         return Path(self.workdir, file)
 
     @abstractmethod

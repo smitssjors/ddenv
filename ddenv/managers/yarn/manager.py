@@ -17,10 +17,10 @@ class Manager(BaseManager):
     def build_base_image(self):
         with TemporaryDirectory() as tempdir:
             copy_files(
-                tempdir,
                 dockerfile_path(__file__),
                 self.workdir_file("package.json"),
                 self.workdir_file("yarn.lock"),
+                dst=tempdir,
             )
 
             self.docker_client.images.build(

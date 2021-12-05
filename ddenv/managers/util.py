@@ -6,6 +6,6 @@ def dockerfile_path(file_path: str) -> Path:
     return Path(file_path).parent / "Dockerfile"
 
 
-def copy_files(dst: str, *srcs: Path | str):
+def copy_files(*srcs: Path | str, dst: str):
     for src in srcs:
         copy(src, dst)
