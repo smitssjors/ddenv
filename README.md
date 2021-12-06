@@ -34,3 +34,7 @@ Options:
   --help                          Show this message and exit.
 
 ```
+Example:
+```commandline
+ddenv -m yarn yarn dev
+```
