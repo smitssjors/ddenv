@@ -57,7 +57,9 @@ class BaseManager(ABC):
         """
 
     @abstractmethod
-    def run_command(self, command: Optional[list[str]]) -> Container:
+    def run_command(
+        self, command: Optional[list[str]], ports: Optional[list[str]]
+    ) -> Container:
         """Run the given command in the base image and return the logs"""
 
 

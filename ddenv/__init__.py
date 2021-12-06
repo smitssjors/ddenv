@@ -1,6 +1,6 @@
 """Docker Dev Environment, easily develop your programs using containers"""
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 import os
 from typing import Optional
@@ -22,6 +22,9 @@ def run(
     ),
     version: Optional[str] = Option(
         None, "--version", "-v", help="The version of the project manager/runtime"
+    ),
+    ports: Optional[list[str]] = Option(
+        None, "--port", "-p", help="Ports to forward. Example: -p 5000:5000"
     ),
 ):
     """Run the command in a Docker container with all the dependencies and source code"""
@@ -51,12 +54,14 @@ def run(
 
         echo("Running command\n")
         try:
-            container = handler.run_command(command)
+            container = handler.run_command(command, ports)
             try:
                 for output in container.logs(stream=True):
                     echo(output.rstrip())
             except KeyboardInterrupt:
-                container.stop()
+                echo("\nStopping container")
+                with spinner():
+                    container.stop()
                 raise KeyboardInterrupt()
         except ContainerError as e:
             echo("Error running container", err=True)

@@ -52,11 +52,18 @@ class Manager(BaseManager):
                 buildargs={"VERSION": self.version},
             )
 
-    def run_command(self, command: Optional[list[str]]) -> Container:
+    def run_command(
+        self, command: Optional[list[str]], ports: Optional[list[str]]
+    ) -> Container:
+        ports_dict = None
+        if ports is not None:
+            ports_dict = util.process_ports(ports)
+        print(ports_dict)
         return self.docker_client.containers.run(
             image=self.image_tag,
             command=command,
             remove=True,
             detach=True,
             volumes={self.workdir: {"bind": "/app", "mode": "rw"}},
+            ports=ports_dict,
         )

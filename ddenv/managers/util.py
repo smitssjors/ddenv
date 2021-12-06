@@ -40,3 +40,7 @@ def image_exists(docker_client: DockerClient, image_tag: str) -> bool:
         return True
     except ImageNotFound:
         return False
+
+
+def process_ports(ports: list[str]) -> dict[str, str]:
+    return {f"{fr}/tcp": to for fr, to in map(lambda x: x.split(":"), ports)}
