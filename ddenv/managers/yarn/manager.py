@@ -1,4 +1,3 @@
-from collections.abc import Iterator
 from tempfile import TemporaryDirectory
 from typing import Final, Optional
 
@@ -11,6 +10,10 @@ DEFAULT_VERSION: Final[str] = "lts"
 
 
 class Manager(BaseManager):
+    @property
+    def name(self) -> str:
+        return "yarn"
+
     @property
     def version(self) -> str:
         if self._version is None:
@@ -42,22 +45,18 @@ class Manager(BaseManager):
                 dst=tempdir,
             )
 
-            _, logs = self.docker_client.images.build(
+            self.docker_client.images.build(
                 path=tempdir,
                 tag=self.image_tag,
                 rm=True,
                 buildargs={"VERSION": self.version},
             )
-            for i in logs:
-                print(i)
 
-    def run_command(self, command: Optional[list[str]]) -> Iterator[bytes]:
-        container: Container = self.docker_client.containers.run(
+    def run_command(self, command: Optional[list[str]]) -> Container:
+        return self.docker_client.containers.run(
             image=self.image_tag,
             command=command,
             remove=True,
             detach=True,
             volumes={self.workdir: {"bind": "/app", "mode": "rw"}},
         )
-
-        return container.logs(stream=True)

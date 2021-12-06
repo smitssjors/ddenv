@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from collections.abc import Iterator
 from importlib import import_module
 from pathlib import Path
 from types import ModuleType
@@ -14,6 +13,11 @@ class BaseManager(ABC):
         self._version = version
         self._workdir = workdir
         self.docker_client = from_env()
+
+    @property
+    @abstractmethod
+    def name(self) -> str:
+        """Returns the name of the manager"""
 
     @property
     def version(self) -> str:
@@ -53,7 +57,7 @@ class BaseManager(ABC):
         """
 
     @abstractmethod
-    def run_command(self, command: Optional[list[str]]) -> Iterator[bytes]:
+    def run_command(self, command: Optional[list[str]]) -> Container:
         """Run the given command in the base image and return the logs"""
 
 

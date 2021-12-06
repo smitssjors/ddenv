@@ -1,10 +1,36 @@
 # Docker Dev Environment
+Ddenv is a CLI tool to help with using docker as development environment.
+It currently supports the following project management tools:
+- yarn
+
+## Installation
+Ddenv requires Python 3.10+
+```commandline
+pip install ddenv
+```
 
 ## Usage
-`ddenv` -> always read config from file if there is one
+```
+$ ddenv --help
+Usage: ddenv [OPTIONS] [COMMAND]...
 
-`ddenv --config ./walla/ddenv.yml` -> specify config file
+  Run the command in a Docker container with all the dependencies and
+  source code
 
-`ddenv node index.js` -> try to infer the runtime
+Arguments:
+  [COMMAND]...  The command to run
 
-`ddenv -r node -v 12 node index.js` -> specify runtime and runtime version
+Options:
+  -m, --manager TEXT              The project manager your project uses
+                                  [required]
+  -v, --version TEXT              The version of the project
+                                  manager/runtime
+  --install-completion [bash|zsh|fish|powershell|pwsh]
+                                  Install completion for the specified
+                                  shell.
+  --show-completion [bash|zsh|fish|powershell|pwsh]
+                                  Show completion for the specified shell,
+                                  to copy it or customize the installation.
+  --help                          Show this message and exit.
+
+```
