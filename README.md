@@ -25,6 +25,7 @@ Options:
                                   [required]
   -v, --version TEXT              The version of the project
                                   manager/runtime
+  -p, --port TEXT                 Ports to forward. Example: -p 5000:5000
   --install-completion [bash|zsh|fish|powershell|pwsh]
                                   Install completion for the specified
                                   shell.
@@ -32,7 +33,6 @@ Options:
                                   Show completion for the specified shell,
                                   to copy it or customize the installation.
   --help                          Show this message and exit.
-
 ```
 Example:
 ```commandline
