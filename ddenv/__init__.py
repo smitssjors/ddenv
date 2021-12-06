@@ -1,6 +1,6 @@
 """Docker Dev Environment, easily develop your programs using containers"""
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 import os
 from typing import Optional
